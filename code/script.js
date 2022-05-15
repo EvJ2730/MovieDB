@@ -141,7 +141,6 @@ function highlightSelection() {
             hightlightedTag.classList.add('highlight');
         })
     }
-
 }
 
 function clearBtn() {
@@ -149,7 +148,6 @@ function clearBtn() {
     if (clearBtn) {
         clearBtn.classList.add('highlight')
     } else {
-
         let clear = document.createElement('div');
         clear.classList.add('tag', 'highlight');
         clear.id = 'clear';
@@ -161,7 +159,6 @@ function clearBtn() {
         })
         tagsEl.append(clear);
     }
-
 }
 
 getMovies(API_URL);
@@ -193,11 +190,8 @@ function getMovies(url) {
         } else {
             main.innerHTML = `<h1 class="no-results">No Results Found</h1>`
         }
-
     })
-
 }
-
 
 function showMovies(data) {
     main.innerHTML = '';
@@ -207,7 +201,7 @@ function showMovies(data) {
         const movieEl = document.createElement('div');
         movieEl.classList.add('movie');
         movieEl.innerHTML = `
-             <img src="${poster_path ? IMG_URL + poster_path : "http://via.placeholder.com/1080x1580"}" alt="${title}">
+            <img src="${poster_path ? IMG_URL + poster_path : "http://via.placeholder.com/1080x1580"}" alt="${title}">
             <div class="movie-info">
                 <h3>${title}</h3>
                 <span class="${getColor(vote_average)}">${vote_average}</span>
@@ -217,9 +211,7 @@ function showMovies(data) {
                 ${overview}
                 <br/> 
                 <button class="know-more" id="${id}">Know More</button
-            </div>
-        
-        `
+            </div>`
 
         main.appendChild(movieEl);
 
@@ -240,30 +232,19 @@ function openNav(movie) {
             if (videoData.results.length > 0) {
                 var embed = [];
                 var dots = [];
-                videoData.results.forEach((video, idx) => {
+                videoData.results.forEach((video) => {
                     let { name, key, site } = video
 
                     if (site == 'YouTube') {
 
-                        embed.push(`
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/${key}" title="${name}" class="embed hide" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          `)
-
-                        dots.push(`
-              <span class="dot">${idx + 1}</span>
-            `)
+                        embed.push(`<iframe width="560" height="315" src="https://www.youtube.com/embed/${key}" title="${name}" class="embed hide" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`)
                     }
                 })
+                var content = `<h1 class="no-results">${movie.original_title}</h1> <br/>
+                ${embed.join('')}
+                <br/>
+                <div class="dots">${dots.join('')}</div> `
 
-                var content = `
-        <h1 class="no-results">${movie.original_title}</h1>
-        <br/>
-        
-        ${embed.join('')}
-        <br/>
-        <div class="dots">${dots.join('')}</div>
-        
-        `
                 overlayContent.innerHTML = content;
                 activeSlide = 0;
                 showVideos();
@@ -290,7 +271,6 @@ function showVideos() {
         if (activeSlide == idx) {
             embedTag.classList.add('show')
             embedTag.classList.remove('hide')
-
         } else {
             embedTag.classList.add('hide');
             embedTag.classList.remove('show')
@@ -305,29 +285,6 @@ function showVideos() {
         }
     })
 }
-
-const leftArrow = document.getElementById('left-arrow')
-const rightArrow = document.getElementById('right-arrow')
-
-leftArrow.addEventListener('click', () => {
-    if (activeSlide > 0) {
-        activeSlide--;
-    } else {
-        activeSlide = totalVideos - 1;
-    }
-
-    showVideos()
-})
-
-rightArrow.addEventListener('click', () => {
-    if (activeSlide < (totalVideos - 1)) {
-        activeSlide++;
-    } else {
-        activeSlide = 0;
-    }
-    showVideos()
-})
-
 
 function getColor(vote) {
     if (vote >= 8) {

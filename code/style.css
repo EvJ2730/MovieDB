@@ -245,23 +245,6 @@ main {
     display: inline-block;
 }
 
-.arrow {
-    position: absolute;
-    font-size: 40px;
-}
-
-.arrow.left-arrow {
-    top: 50%;
-    left: 5%;
-    transform: translateY(-50%);
-}
-
-.arrow.right-arrow {
-    top: 50%;
-    transform: translateY(-50%);
-    right: 5%;
-}
-
 .dots {
     margin-top: 30px;
 }
