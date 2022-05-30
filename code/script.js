@@ -99,7 +99,7 @@ var lastUrl = '';
 var totalPages = 100;
 
 var selectedGenre = []
-setGenre();
+setGenre(); // for filter 
 function setGenre() {
     tagsEl.innerHTML = '';
     genres.forEach(genre => {
@@ -160,9 +160,9 @@ function clearBtn() {
         tagsEl.append(clear);
     }
 }
-
+// ------------------------------------------------------------------------------------
 getMovies(API_URL);
-
+// fetching movies from API 
 function getMovies(url) {
     lastUrl = url;
     fetch(url).then(res => res.json()).then(data => {
@@ -192,7 +192,7 @@ function getMovies(url) {
         }
     })
 }
-
+// displaying movies 
 function showMovies(data) {
     main.innerHTML = '';
 
@@ -224,8 +224,9 @@ function showMovies(data) {
 
 const overlayContent = document.getElementById('overlay-content');
 function openNav(movie) {
+    let overview = movie.overview;
     let id = movie.id;
-    fetch(BASE_URL + '/movie/' + id + '/videos?' + API_KEY).then(res => res.json()).then(videoData => {
+    fetch(BASE_URL + '/movie/' + id + '/videos?' + API_KEY).then(res => res.json()).then(videoData => { //catch
         console.log(videoData);
         if (videoData) {
             document.getElementById("myNav").style.width = "100%";
@@ -236,14 +237,14 @@ function openNav(movie) {
                     let { name, key, site } = video
 
                     if (site == 'YouTube') {
-
                         embed.push(`<iframe width="560" height="315" src="https://www.youtube.com/embed/${key}" title="${name}" class="embed hide" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`)
                     }
                 })
-                var content = `<h1 class="no-results">${movie.original_title}</h1> <br/>
+                var content = `<div class="overWrap"<h1 class="no-results">${movie.original_title}</h1> <br/> 
+                <p class="scriptOverview">${overview}</p> <br/></div>
                 ${embed.join('')}
                 <br/>
-                <div class="dots">${dots.join('')}</div> `
+                <div class="dots">${dots.join('')}</div>`
 
                 overlayContent.innerHTML = content;
                 activeSlide = 0;
@@ -256,15 +257,14 @@ function openNav(movie) {
 }
 
 function closeNav() {
-    document.getElementById("myNav").style.width = "0%";
+    document.getElementById("myNav").style.width = "0%"; 
 }
 
 var activeSlide = 0;
 var totalVideos = 0;
-
+// displaying videos
 function showVideos() {
-    let embedClasses = document.querySelectorAll('.embed');
-    let dots = document.querySelectorAll('.dot');
+    let embedClasses = document.querySelectorAll('.embed'); 
 
     totalVideos = embedClasses.length;
     embedClasses.forEach((embedTag, idx) => {
@@ -274,14 +274,6 @@ function showVideos() {
         } else {
             embedTag.classList.add('hide');
             embedTag.classList.remove('show')
-        }
-    })
-
-    dots.forEach((dot, indx) => {
-        if (activeSlide == indx) {
-            dot.classList.add('active');
-        } else {
-            dot.classList.remove('active')
         }
     })
 }
@@ -316,7 +308,7 @@ prev.addEventListener('click', () => {
     }
 })
 
-next.addEventListener('click', () => {
+next.addEventListener('click', () => { 
     if (nextPage <= totalPages) {
         pageCall(nextPage);
     }

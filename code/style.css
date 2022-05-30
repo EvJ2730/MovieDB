@@ -94,6 +94,8 @@ main {
 }
 
 .overview {
+    white-space: nowrap;
+    overflow: hidden;
     position: absolute;
     left: 0;
     right: 0;
@@ -105,6 +107,13 @@ main {
     max-height: 100%;
     transform: translateY(101%);
     transition: transform 0.3s ease-in;
+    text-overflow: ellipsis;
+}
+
+.scriptOverview{
+    max-width: 350px;
+    max-height: 100%;
+    color: #FAEBD7;
 }
 
 .movie:hover .overview {
@@ -197,11 +206,10 @@ main {
 }
 
 .overlay-content {
-    position: relative;
-    top: 10%;
-    width: 100%;
-    text-align: center;
-    margin-top: 30px;
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 .overlay a {
@@ -245,20 +253,3 @@ main {
     display: inline-block;
 }
 
-.dots {
-    margin-top: 30px;
-}
-
-.dots .dot {
-    padding: 5px 15px;
-    border-radius: 50%;
-    border: 5px solid var(--secondary-color);
-    color: #FAEBD7;
-    font-size: 20px;
-    font-weight: 600;
-    margin: 5px;
-}
-
-.dots .dot.active {
-    border-color: var(--secondary-color);
-}
